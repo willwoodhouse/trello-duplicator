@@ -4,24 +4,28 @@
   <meta charset="utf-8">
   <script src="https://p.trellocdn.com/power-up.min.js"></script>
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const cardId = params.get('cardId');
+    var t = TrelloPowerUp.iframe();
+    var params = new URLSearchParams(window.location.search);
+    var cardId = params.get('cardId');
 
-    fetch('https://script.google.com/macros/s/AKfycbyGoiFvLNBadhaO412aKQ3lw3akx5gRw1ypFtfzmqwNgKOoDO0id9rxQ--Zjh-xp4jcBA/exec?cardId=' + cardId, {
-      method: 'GET',
-      redirect: 'follow'
-    })
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById('status').innerText = 
-        data.success ? 'Done! Cards created: ' + data.cardsCreated : 'Error: ' + data.error;
-    })
-    .catch(err => {
-      document.getElementById('status').innerText = 'Error: ' + err.message;
+    document.getElementById('status').innerText = 'Card ID: ' + cardId + ' — calling script...';
+
+    t.render(function() {
+      fetch('https://script.google.com/macros/s/AKfycbyGoiFvLNBadhaO412aKQ3lw3akx5gRw1ypFtfzmqwNgKOoDO0id9rxQ--Zjh-xp4jcBA/exec?cardId=' + cardId, {
+        method: 'GET',
+        redirect: 'follow'
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        document.getElementById('status').innerText = JSON.stringify(data);
+      })
+      .catch(function(err) {
+        document.getElementById('status').innerText = 'Error: ' + err.message;
+      });
     });
   </script>
 </head>
 <body>
-  <p id="status">Running...</p>
+  <p id="status">Loading...</p>
 </body>
 </html>
