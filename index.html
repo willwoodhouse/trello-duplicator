@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+  <script>
+    TrelloPowerUp.initialize({
+      'card-buttons': function(t, options) {
+        return [{
+          text: 'Duplicate By Hours',
+          callback: function(t) {
+            return t.card('id').then(function(card) {
+              return t.overlay({
+                url: './trigger.html?cardId=' + card.id,
+                args: {}
+              });
+            });
+          }
+        }];
+      }
+    });
+  </script>
+</head>
+<body></body>
+</html>
