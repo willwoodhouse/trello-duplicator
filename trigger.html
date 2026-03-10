@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const cardId = params.get('cardId');
+
+    fetch('https://YOUR_GAS_URL/exec?cardId=' + cardId, {
+      method: 'GET',
+      redirect: 'follow'
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('status').innerText = 
+        data.success ? 'Done! Cards created: ' + data.cardsCreated : 'Error: ' + data.error;
+    })
+    .catch(err => {
+      document.getElementById('status').innerText = 'Error: ' + err.message;
+    });
+  </script>
+</head>
+<body>
+  <p id="status">Running...</p>
+</body>
+</html>
