@@ -10,9 +10,10 @@
           text: 'Duplicate By Hours',
           callback: function(t) {
             return t.card('id').then(function(card) {
-              return t.overlay({
+              return t.popup({
+                title: 'Duplicate By Hours',
                 url: './trigger.html?cardId=' + card.id,
-                args: {}
+                height: 100
               });
             });
           }
