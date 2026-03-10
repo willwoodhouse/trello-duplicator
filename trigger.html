@@ -7,7 +7,7 @@
     const params = new URLSearchParams(window.location.search);
     const cardId = params.get('cardId');
 
-    fetch('https://YOUR_GAS_URL/exec?cardId=' + cardId, {
+    fetch('https://script.google.com/macros/s/AKfycbyGoiFvLNBadhaO412aKQ3lw3akx5gRw1ypFtfzmqwNgKOoDO0id9rxQ--Zjh-xp4jcBA/exec?cardId=' + cardId, {
       method: 'GET',
       redirect: 'follow'
     })
