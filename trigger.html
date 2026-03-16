@@ -3,17 +3,21 @@
 <head>
   <meta charset="utf-8">
   <script src="https://p.trellocdn.com/power-up.min.js"></script>
+</head>
+<body>
+  <p id="status">Running...</p>
   <script>
-    var t = TrelloPowerUp.iframe();
-    var params = new URLSearchParams(window.location.search);
-    var cardId = params.get('cardId');
+    document.addEventListener('DOMContentLoaded', function() {
+      var t = TrelloPowerUp.iframe();
+      var params = new URLSearchParams(window.location.search);
+      var cardId = params.get('cardId');
 
-    document.getElementById('status').innerText = 'Card ID: ' + cardId + ' — calling script...';
+      document.getElementById('status').innerText = 'Calling script...';
 
-    t.render(function() {
-      fetch('https://script.google.com/macros/s/AKfycbyGoiFvLNBadhaO412aKQ3lw3akx5gRw1ypFtfzmqwNgKOoDO0id9rxQ--Zjh-xp4jcBA/exec?cardId=' + cardId, {
-        method: 'GET',
-        redirect: 'follow'
+      fetch('https://trello-duplicator.will-f86.workers.dev/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cardId: cardId })
       })
       .then(function(res) { return res.json(); })
       .then(function(data) {
@@ -24,8 +28,5 @@
       });
     });
   </script>
-</head>
-<body>
-  <p id="status">Loading...</p>
 </body>
 </html>
