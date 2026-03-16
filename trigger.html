@@ -7,25 +7,23 @@
 <body>
   <p id="status">Running...</p>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var t = TrelloPowerUp.iframe();
-      var params = new URLSearchParams(window.location.search);
-      var cardId = params.get('cardId');
+    var t = TrelloPowerUp.iframe();
+    var params = new URLSearchParams(window.location.search);
+    var cardId = params.get('cardId');
 
-      document.getElementById('status').innerText = 'Calling script...';
+    document.getElementById('status').innerText = 'Calling script for card: ' + cardId;
 
-      fetch('https://trello-duplicator.will-f86.workers.dev/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cardId: cardId })
-      })
-      .then(function(res) { return res.json(); })
-      .then(function(data) {
-        document.getElementById('status').innerText = JSON.stringify(data);
-      })
-      .catch(function(err) {
-        document.getElementById('status').innerText = 'Error: ' + err.message;
-      });
+    fetch('https://trello-duplicator.will-f86.workers.dev/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cardId: cardId })
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      document.getElementById('status').innerText = JSON.stringify(data);
+    })
+    .catch(function(err) {
+      document.getElementById('status').innerText = 'Error: ' + err.message;
     });
   </script>
 </body>
